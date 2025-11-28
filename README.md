@@ -748,5 +748,4 @@ For support, open an issue in the repository or contact the maintainers.
 
 **Built with ❤️ using MERN Stack + Google Gemini AI**
 
-#   C o l l a b - S p a c e - A I - S - B a c k e n d  
- 
+#
