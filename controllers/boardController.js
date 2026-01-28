@@ -26,6 +26,24 @@ export const createBoard = async (req, res) => {
       }]
     });
 
+    // Create 4 default lists automatically
+    const defaultLists = [
+      { title: 'To Do', position: 0 },
+      { title: 'In Progress', position: 1 },
+      { title: 'Testing', position: 2 },
+      { title: 'Done', position: 3 }
+    ];
+
+    await Promise.all(
+      defaultLists.map(listData =>
+        List.create({
+          title: listData.title,
+          board: board._id,
+          position: listData.position
+        })
+      )
+    );
+
     await board.populate('owner', 'name email');
     await board.populate('members.user', 'name email');
 
@@ -72,8 +90,12 @@ export const getBoard = async (req, res) => {
     }
 
     // Check if user is owner or member
+    // Need to check both populated and unpopulated member.user fields
     const isMember = board.members.some(
-      member => member.user._id.toString() === req.user._id.toString()
+      member => {
+        const memberId = member.user._id ? member.user._id.toString() : member.user.toString();
+        return memberId === req.user._id.toString();
+      }
     );
 
     const isOwner = board.owner._id.toString() === req.user._id.toString();
@@ -81,17 +103,73 @@ export const getBoard = async (req, res) => {
     // If user is not a member and not the owner, automatically add them as a member
     // This enables share link functionality - anyone with the link can join
     if (!isMember && !isOwner) {
-      board.members.push({
-        user: req.user._id,
-        role: 'member'
-      });
+      // Double-check to prevent duplicates (in case of race conditions)
+      const alreadyExists = board.members.some(
+        member => {
+          const memberId = member.user._id ? member.user._id.toString() : member.user.toString();
+          return memberId === req.user._id.toString();
+        }
+      );
 
+      if (!alreadyExists) {
+        board.members.push({
+          user: req.user._id,
+          role: 'member'
+        });
+
+        await board.save();
+
+        // Re-populate to include the newly added member
+        await board.populate('members.user', 'name email');
+
+        console.log(`User ${req.user.email} auto-joined board ${board.title} via share link`);
+      }
+    }
+
+    // Check if board has any lists, if not create the 4 default lists
+    const existingLists = await List.find({ board: board._id });
+
+    if (existingLists.length === 0) {
+      console.log(`Creating default lists for board: ${board.title}`);
+
+      const defaultLists = [
+        { title: 'To Do', position: 0 },
+        { title: 'In Progress', position: 1 },
+        { title: 'Testing', position: 2 },
+        { title: 'Done', position: 3 }
+      ];
+
+      await Promise.all(
+        defaultLists.map(listData =>
+          List.create({
+            title: listData.title,
+            board: board._id,
+            position: listData.position
+          })
+        )
+      );
+
+      console.log(`Created 4 default lists for board: ${board.title}`);
+    }
+
+    // Final deduplication: ensure no duplicate members in response
+    // This handles any edge cases or existing duplicates
+    const seenMemberIds = new Set();
+    const uniqueMembers = [];
+
+    for (const member of board.members) {
+      const memberId = member.user._id ? member.user._id.toString() : member.user.toString();
+      if (!seenMemberIds.has(memberId)) {
+        seenMemberIds.add(memberId);
+        uniqueMembers.push(member);
+      }
+    }
+
+    // If we found and removed duplicates, update the board
+    if (uniqueMembers.length < board.members.length) {
+      console.log(`Removing ${board.members.length - uniqueMembers.length} duplicate member(s) from board: ${board.title}`);
+      board.members = uniqueMembers;
       await board.save();
-
-      // Re-populate to include the newly added member
-      await board.populate('members.user', 'name email');
-
-      console.log(`User ${req.user.email} auto-joined board ${board.title} via share link`);
     }
 
     res.json(board);
