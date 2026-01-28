@@ -1,14 +1,8 @@
-# 🚀 SmartBoard - AI-Powered Task Management Platform
+# 🚀 CollabSpace AI - A AI-Powered Task Management Platform
 
 <div align="center">
 
-![SmartBoard](https://img.shields.io/badge/SmartBoard-AI%20Powered-blue?style=for-the-badge)
-![Version](https://img.shields.io/badge/version-1.0.0-green?style=for-the-badge)
-![License](https://img.shields.io/badge/license-MIT-orange?style=for-the-badge)
-
 **An intelligent, collaborative task management platform with AI-powered recommendations, drag-and-drop interface, and real-time team collaboration.**
-
-[Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [Architecture](#-architecture) • [Deployment](#-deployment)
 
 </div>
 
@@ -16,12 +10,17 @@
 
 ## 🛠 Tech Stack
 
-### Frontend
 ![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=flat-square&logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-5.4.2-646CFF?style=flat-square&logo=vite&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4.0-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
 ![React Router](https://img.shields.io/badge/React_Router-6.20.0-CA4245?style=flat-square&logo=react-router&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat-square&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-4.18.2-000000?style=flat-square&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-8.0.0-47A248?style=flat-square&logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-9.0.2-000000?style=flat-square&logo=json-web-tokens&logoColor=white)
+![Groq](https://img.shields.io/badge/Groq-LLaMA_3.3_70B-FF6B6B?style=flat-square)
 
+**Frontend:**
 - **React 18.3.1** - Modern UI library with hooks and context
 - **Vite 5.4.2** - Lightning-fast build tool and dev server
 - **TailwindCSS 3.4.0** - Utility-first CSS framework for rapid UI development
@@ -29,24 +28,17 @@
 - **@hello-pangea/dnd 18.0.1** - Beautiful drag-and-drop for lists and cards
 - **qrcode.react 4.2.0** - QR code generation for easy board sharing
 
-### Backend
-![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat-square&logo=node.js&logoColor=white)
-![Express](https://img.shields.io/badge/Express-4.18.2-000000?style=flat-square&logo=express&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-8.0.0-47A248?style=flat-square&logo=mongodb&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-9.0.2-000000?style=flat-square&logo=json-web-tokens&logoColor=white)
-
+**Backend:**
 - **Node.js 18+** - JavaScript runtime
 - **Express 4.18.2** - Fast, minimalist web framework
 - **MongoDB 8.0.0** (via Mongoose) - NoSQL database for flexible data storage
 - **JWT (jsonwebtoken 9.0.2)** - Secure authentication and authorization
 - **bcryptjs 2.4.3** - Password hashing
 
-### AI & Intelligence
+**AI & Intelligence:**
 ![Groq](https://img.shields.io/badge/Groq-LLaMA_3.3_70B-FF6B6B?style=flat-square)
-![Google AI](https://img.shields.io/badge/Google_AI-Gemini-4285F4?style=flat-square&logo=google&logoColor=white)
 
 - **Groq SDK 0.37.0** - Ultra-fast LLM inference with LLaMA 3.3 70B
-- **Google Generative AI 1.30.0** - Gemini model integration
 - **Custom AI Recommendation Engine** - Rule-based + AI-powered task insights
 
 ---
@@ -160,7 +152,6 @@ CollabSpaceAI/
     │
     ├── utils/                   # Helper functions
     │   ├── groqAI.js            # Groq AI integration
-    │   ├── gemini.js            # Google Gemini integration
     │   └── recommendations.js   # Rule-based recommendations
     │
     ├── index.js                 # Server entry point
@@ -196,7 +187,6 @@ graph TB
 
     subgraph "AI Services"
         Groq[Groq LLaMA 3.3]
-        Gemini[Google Gemini]
         Rules[Rule Engine]
     end
 
@@ -210,12 +200,10 @@ graph TB
     Controllers --> Models
     Controllers --> Rules
     Controllers --> Groq
-    Controllers --> Gemini
     
     Models --> MongoDB
     
     Groq -.AI Insights.-> Controllers
-    Gemini -.AI Insights.-> Controllers
     Rules -.Recommendations.-> Controllers
 ```
 
@@ -354,11 +342,6 @@ The platform uses a **hybrid AI approach**:
    - Ultra-fast inference (< 1 second)
    - Contextual understanding of board state
    - Natural language insights
-
-3. **Google Gemini** (`gemini.js`)
-   - Fallback AI provider
-   - Advanced reasoning capabilities
-   - Multi-modal understanding
 
 **AI Insights Include:**
 - 📅 Due date suggestions with reasoning
@@ -537,18 +520,9 @@ Contributions are welcome! Here's how:
 
 ---
 
-## 📝 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
----
-
 ## 👨‍💻 Author
 
 **Mohd. Altamash Rizwi**
-
-- GitHub: [@rizwimohdaltamash](https://github.com/rizwimohdaltamash)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
 
 ---
 
@@ -559,12 +533,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - **MongoDB** - For flexible data storage
 - **Vercel & Render** - For easy deployment
 - **TailwindCSS** - For beautiful, rapid UI development
-
----
-
-## 📧 Support
-
-For support, email altamashrizwi@example.com or open an issue on GitHub.
 
 ---
 
