@@ -1,8 +1,12 @@
-# 🚀 CollabSpace AI - A AI-Powered Task Management Platform
+# 🚀 SmartBoard - AI-Powered Task Management Platform
 
 <div align="center">
 
+
+
 **An intelligent, collaborative task management platform with AI-powered recommendations, drag-and-drop interface, and real-time team collaboration.**
+
+
 
 </div>
 
@@ -46,13 +50,18 @@
 ## ✨ Features
 
 ### 🎯 Core Functionality
-- **📋 Kanban Board System** - Create unlimited boards with custom lists (To Do, In Progress, Done, etc.)
+- **📋 Kanban Board System** - Create unlimited boards with 4 pre-configured static lists:
+  - **To Do** - Tasks waiting to be started
+  - **In Progress** - Tasks currently being worked on
+  - **Testing** - Tasks under review or testing
+  - **Done** - Completed tasks
 - **🎨 Drag & Drop Interface** - Intuitive card movement between lists with smooth animations
 - **✏️ Rich Card Management** 
   - Title, description, and labels
   - Due date tracking with visual indicators
   - Inline editing and quick actions
   - Card archiving and deletion
+- **🔄 Auto-List Creation** - Static lists are automatically created when you access any board for the first time
 
 ### 🤖 AI-Powered Intelligence
 - **✨ Smart Recommendations** - AI analyzes your tasks and suggests:
@@ -68,8 +77,9 @@
 - **🔗 Share Links** - One-click shareable board links
 - **📱 QR Code Sharing** - Generate and download QR codes for instant mobile access
 - **🌐 Multi-Platform Sharing** - Direct share to WhatsApp, Telegram, Email, Twitter
-- **👤 Team Members** - View all board collaborators with roles
+- **👤 Team Members** - View all board collaborators with roles (no duplicates!)
 - **🔓 Auto-Join** - Anyone with the link can join and collaborate
+- **✅ Smart Member Management** - Automatic duplicate prevention ensures each user appears only once
 
 ### 🔐 Security & Authentication
 - **🔒 JWT Authentication** - Secure user sessions
@@ -481,6 +491,7 @@ Frontend runs on: `http://localhost:5173`
 1. Click "Create New Board" on dashboard
 2. Enter board name and description
 3. Click "Create" - your Kanban board is ready!
+4. **4 static lists are automatically created**: To Do, In Progress, Testing, Done
 
 ### Adding Tasks
 1. Click "+ Add a card" in any list
@@ -535,6 +546,7 @@ Contributions are welcome! Here's how:
 - **TailwindCSS** - For beautiful, rapid UI development
 
 ---
+
 
 <div align="center">
 
