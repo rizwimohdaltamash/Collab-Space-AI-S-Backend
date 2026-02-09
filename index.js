@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './config/swagger.js';
 import { connectDB } from './config/db.js';
 import authRoutes from './routes/auth.js';
 import boardRoutes from './routes/boards.js';
@@ -17,12 +19,20 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Swagger Documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  explorer: true,
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: "SmartBoard API Docs"
+}));
+
 // Routes
 // Root route for Render deployment
 app.get('/', (req, res) => {
   res.json({ 
     message: 'SmartBoard API Server',
     status: 'running',
+    documentation: '/api-docs',
     endpoints: {
       health: '/api/health',
       auth: '/api/auth',
